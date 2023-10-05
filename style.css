@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+#grid {
+    /* grid라는 태그 안에 frag해줄꺼라 지역으로 변수담음 */
+    --box-width: 100vw;
+    --box-height : 60vh;
+    --frag-width : calc( var(--box-width) / var(--col) );
+    --frag-height : calc( var(--box-height) / var(--row) );
+    --img-url : url(https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F05%2Fone-piece-world-top-100-global-one-piece-popularity-contest-results-00.jpg?w=960&cbr=1&q=90&fit=max);
+
+    display: flex;
+    flex-wrap: wrap;
+    width : var(--box-width);
+    height : var(--box-height);
+    box-sizing: border-box;
+}
+
+.fragment {
+    
+    /*  변수를 마음속 저장 */
+    --x-offset: calc( var(--x) * var(--frag-width) * -1);
+    --y-offset: calc( var(--y) * var(--frag-height) * -1 );
+    --rotateX : rotateX(0);
+    --rotateY : rotateY(0);
+
+
+    overflow: hidden;
+    width: var(--frag-width);
+    height: var(--frag-height);
+    background-image: var(--img-url);
+    background-position: var(--x-offset) var(--y-offset);
+    background-repeat: no-repeat;
+    background-size: var(--box-width) var(--box-height);
+    box-sizing: border-box;
+
+    backface-visibility: hidden;
+    will-change: transform;
+    transform: var(--rotateX) var(--rotateY); 
+
+    animation: Switch var(--duration) linear var(--delay) forwards;
+}
+
+
+/* keyframes를 사용하려면 다른 페이지꺼 복사가 쵴오 */
+@keyframes Switch {
+    0% {
+      transform: var(--rotateX) var(--rotateY) scale(0.8);
+      opacity: 0;
+    }
+  
+    50% {
+      transform: rotateX(0) rotateY(0) scale(0.8);
+      opacity: 1;
+    }
+  
+    100% {
+      transform: rotateX(0deg) scale(1);
+      opacity: 1;
+    }
+  }
